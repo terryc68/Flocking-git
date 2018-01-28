@@ -1,7 +1,7 @@
 from math import *
 import utils
 
-DEFAULT_SPEED = 8
+DEFAULT_SPEED = 4
 
 class Agent(object):
 

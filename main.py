@@ -11,10 +11,8 @@ from random import randrange
 #init variables
 agent_array = []
 obstacle_array = []
-
+freeze = False
 speed_adjustment = 0
-MAX_SPEED = 30
-MIN_SPEED = 2
 
 #CONSTANTS
 # Blue:0 Red:1
@@ -28,8 +26,8 @@ COHESION_RADIUS = 170
 SEPERATION_RADIUS = 30
 OBSTACLE_DOGDGE_RADIUS = 250
 
-MAX_FORCE = 0.03
-
+MAX_SPEED = 30
+MIN_SPEED = 2
 
 def computeAlignment(myAgent,t):
     compute_vel = (0,0)
@@ -113,6 +111,9 @@ def agent_update():
     global agent_array
     temp_agent_array = []
 
+    if freeze:
+        return
+
     for i in xrange(0,len(agent_array)):
         agent = agent_array[i]
         temp_vel = (0,0)
@@ -149,24 +150,9 @@ def clear_all_item():
     agent_array = []
     obstacle_array = []
 
-#pygame variables
-WIDTH = 1300
-HEIGHT = 680
-TITLE = "FLOCKING"
-FPS = 30
-BACKGROUND = (0,0,0)
-AGENT_COLOR = [(116,175,173),(222,27,26)]
-OBSTACLE_COLOR = (162,171,88)
-TEXT_COLOR = (255,255,255)
-TRI_BASE = 12
-TRI_HEIGHT = 18
-
-pyg.init()
-clock = pyg.time.Clock()
-clock.tick(FPS)
-
-screen = pyg.display.set_mode((WIDTH, HEIGHT))
-pyg.display.set_caption(TITLE)
+def toggle_freeze_agent():
+    global freeze
+    freeze = not freeze
 
 def adjust_speed(type):
     global speed_adjustment
@@ -180,6 +166,24 @@ def adjust_speed(type):
     elif speed_adjustment < MIN_SPEED:
         speed_adjustment = MIN_SPEED
 
+#pygame variables
+WIDTH = 1300
+HEIGHT = 680
+TITLE = "FLOCKING"
+FPS = 30
+BACKGROUND = (0,0,0)
+AGENT_COLOR = [(116,175,173),(222,27,26)]
+OBSTACLE_COLOR = (162,171,88)
+TEXT_COLOR = (255,255,255)
+TRI_BASE = 10
+TRI_HEIGHT = 15
+
+pyg.init()
+clock = pyg.time.Clock()
+clock.tick(FPS)
+
+screen = pyg.display.set_mode((WIDTH, HEIGHT))
+pyg.display.set_caption(TITLE)
 
 def make_agent_inbound():
     for agent in agent_array:
@@ -223,6 +227,8 @@ def run():
                 clear_all_item()
             elif pyg.key.get_pressed()[pyg.K_r]:
                 randomize_position()
+            elif pyg.key.get_pressed()[pyg.K_f]:
+                toggle_freeze_agent()
             elif pyg.key.get_pressed()[pyg.K_UP]:
                 adjust_speed(1)
             elif pyg.key.get_pressed()[pyg.K_DOWN]:
