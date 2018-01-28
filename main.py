@@ -15,15 +15,11 @@ freeze = False
 speed_adjustment = 0
 
 #CONSTANTS
-ALIGNMENT_WEIGHT = [15,5]
+# Blue:0 Red:1
+ALIGNMENT_WEIGHT = [10,4]
 COHESION_WEIGHT = [3,3]
-<<<<<<< HEAD
 SEPERATION_WEIGHT = [5,8]
 OBSTACLE_DOGDGE_WEIGHT = 200
-=======
-SEPERATION_WEIGHT = [10,5]
-OBSTACLE_DOGDGE_WEIGHT = 50
->>>>>>> 51d8b696871f0471ffc7a06a2c6d312e0041616f
 
 ALIGNMENT_RADIUS = 200
 COHESION_RADIUS = 170
@@ -136,9 +132,9 @@ def agent_update():
         temp_vel = utils.v_array_sum(v_array)
         a = Agent(agent.pos, temp_vel)
         if i%2:
-            a.vel = utils.limit(temp_vel, DEFAULT_SPEED *1.4)
+            a.vel = utils.limit(temp_vel, DEFAULT_SPEED + 6 + speed_adjustment)
         else:
-            a.vel = utils.limit(temp_vel, DEFAULT_SPEED)
+            a.vel = utils.limit(temp_vel, DEFAULT_SPEED + speed_adjustment)
         # utils.change_vel_if_zero(a)
         a.updatePos()
         temp_agent_array.append(a)
@@ -150,6 +146,7 @@ def randomize_position():
         agent.pos = randrange(0,WIDTH,1), randrange(0,HEIGHT,1)
 
 def clear_all_item():
+    global agent_array, obstacle_array
     agent_array = []
     obstacle_array = []
 
@@ -177,8 +174,6 @@ FPS = 30
 BACKGROUND = (0,0,0)
 AGENT_COLOR = [(116,175,173),(222,27,26)]
 OBSTACLE_COLOR = (162,171,88)
-TRI_BASE = 12
-TRI_HEIGHT = 18
 TEXT_COLOR = (255,255,255)
 TRI_BASE = 10
 TRI_HEIGHT = 15
@@ -243,8 +238,6 @@ def run():
                 agent_array.append(Agent(pyg.mouse.get_pos()))
             elif pyg.mouse.get_pressed()[2]:
                 obstacle_array.append(Obstacle(pyg.mouse.get_pos()))
-            elif pyg.key.get_pressed()[pyg.K_r]:
-                randomize_position()
 
         screen.fill(BACKGROUND)
         draw_agent()
