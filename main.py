@@ -11,6 +11,11 @@ from random import randrange
 #init variables
 agent_array = []
 obstacle_array = []
+<<<<<<< HEAD
+=======
+freeze = False
+speed_adjustment = 0
+>>>>>>> 9f0d10ac14e60a17ed1484c4a61f7cd29fbcba8d
 
 #CONSTANTS
 ALIGNMENT_WEIGHT = [15,5]
@@ -23,8 +28,8 @@ COHESION_RADIUS = 170
 SEPERATION_RADIUS = 30
 OBSTACLE_DOGDGE_RADIUS = 250
 
-MAX_FORCE = 0.03
-
+MAX_SPEED = 30
+MIN_SPEED = 2
 
 def computeAlignment(myAgent,t):
     compute_vel = (0,0)
@@ -108,6 +113,9 @@ def agent_update():
     global agent_array
     temp_agent_array = []
 
+    if freeze:
+        return
+
     for i in xrange(0,len(agent_array)):
         agent = agent_array[i]
         temp_vel = (0,0)
@@ -143,6 +151,22 @@ def clear_all_item():
     agent_array = []
     obstacle_array = []
 
+def toggle_freeze_agent():
+    global freeze
+    freeze = not freeze
+
+def adjust_speed(type):
+    global speed_adjustment
+    if type:
+        speed_adjustment += 1
+    else:
+        speed_adjustment -= 1
+
+    if speed_adjustment > MAX_SPEED:
+        speed_adjustment = MAX_SPEED
+    elif speed_adjustment < MIN_SPEED:
+        speed_adjustment = MIN_SPEED
+
 #pygame variables
 WIDTH = 1300
 HEIGHT = 680
@@ -151,8 +175,14 @@ FPS = 30
 BACKGROUND = (0,0,0)
 AGENT_COLOR = [(116,175,173),(222,27,26)]
 OBSTACLE_COLOR = (162,171,88)
+<<<<<<< HEAD
 TRI_BASE = 12
 TRI_HEIGHT = 18
+=======
+TEXT_COLOR = (255,255,255)
+TRI_BASE = 10
+TRI_HEIGHT = 15
+>>>>>>> 9f0d10ac14e60a17ed1484c4a61f7cd29fbcba8d
 
 pyg.init()
 clock = pyg.time.Clock()
@@ -165,6 +195,23 @@ def make_agent_inbound():
     for agent in agent_array:
         agent.pos = agent.pos[0] % WIDTH, agent.pos[1] % HEIGHT
 
+<<<<<<< HEAD
+=======
+def draw_text():
+    font = pyg.font.SysFont("consolas",12)
+    text_array = [
+                  font.render("Clock FPS: {}".format(clock.get_fps()),20,TEXT_COLOR),
+                  font.render("Clock Ticks: {}".format(pyg.time.get_ticks() / 1000),20,TEXT_COLOR),
+                  font.render("Agent Count: {}".format(len(agent_array)),20,TEXT_COLOR),
+                  font.render("Obstacle Count: {}".format(len(obstacle_array)),20,TEXT_COLOR),
+                  font.render("Red Agent Speed: {}".format(DEFAULT_SPEED + speed_adjustment + 6),20,TEXT_COLOR),
+                  font.render("Blue Agent Speed: {}".format(DEFAULT_SPEED + speed_adjustment),20,TEXT_COLOR)
+                 ]
+    for i in xrange(0,len(text_array)):
+        text = text_array[i]
+        screen.blit(text,(2,3 + i*15))
+
+>>>>>>> 9f0d10ac14e60a17ed1484c4a61f7cd29fbcba8d
 def draw_agent():
     for i in xrange(0,len(agent_array)):
         agent = agent_array[i]
@@ -186,6 +233,19 @@ def run():
             if event.type == pyg.QUIT:
                 pyg.quit()
                 sys.exit()
+<<<<<<< HEAD
+=======
+            elif pyg.key.get_pressed()[pyg.K_c]:
+                clear_all_item()
+            elif pyg.key.get_pressed()[pyg.K_r]:
+                randomize_position()
+            elif pyg.key.get_pressed()[pyg.K_f]:
+                toggle_freeze_agent()
+            elif pyg.key.get_pressed()[pyg.K_UP]:
+                adjust_speed(1)
+            elif pyg.key.get_pressed()[pyg.K_DOWN]:
+                adjust_speed(0)
+>>>>>>> 9f0d10ac14e60a17ed1484c4a61f7cd29fbcba8d
             elif pyg.mouse.get_pressed()[0]:
                 agent_array.append(Agent(pyg.mouse.get_pos()))
             elif pyg.mouse.get_pressed()[2]:
