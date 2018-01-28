@@ -193,6 +193,7 @@ def draw_text():
     font = pyg.font.SysFont("consolas",12)
     text_array = [
                   font.render("Clock FPS: {}".format(clock.get_fps()),20,TEXT_COLOR),
+                  font.render("Clock Ticks: {}".format(pyg.time.get_ticks() / 1000),20,TEXT_COLOR),
                   font.render("Agent Count: {}".format(len(agent_array)),20,TEXT_COLOR),
                   font.render("Obstacle Count: {}".format(len(obstacle_array)),20,TEXT_COLOR),
                   font.render("Red Agent Speed: {}".format(DEFAULT_SPEED + speed_adjustment + 6),20,TEXT_COLOR),
