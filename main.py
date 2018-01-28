@@ -11,11 +11,8 @@ from random import randrange
 #init variables
 agent_array = []
 obstacle_array = []
-<<<<<<< HEAD
-=======
 freeze = False
 speed_adjustment = 0
->>>>>>> 9f0d10ac14e60a17ed1484c4a61f7cd29fbcba8d
 
 #CONSTANTS
 ALIGNMENT_WEIGHT = [15,5]
@@ -175,14 +172,11 @@ FPS = 30
 BACKGROUND = (0,0,0)
 AGENT_COLOR = [(116,175,173),(222,27,26)]
 OBSTACLE_COLOR = (162,171,88)
-<<<<<<< HEAD
 TRI_BASE = 12
 TRI_HEIGHT = 18
-=======
 TEXT_COLOR = (255,255,255)
 TRI_BASE = 10
 TRI_HEIGHT = 15
->>>>>>> 9f0d10ac14e60a17ed1484c4a61f7cd29fbcba8d
 
 pyg.init()
 clock = pyg.time.Clock()
@@ -195,8 +189,6 @@ def make_agent_inbound():
     for agent in agent_array:
         agent.pos = agent.pos[0] % WIDTH, agent.pos[1] % HEIGHT
 
-<<<<<<< HEAD
-=======
 def draw_text():
     font = pyg.font.SysFont("consolas",12)
     text_array = [
@@ -211,7 +203,6 @@ def draw_text():
         text = text_array[i]
         screen.blit(text,(2,3 + i*15))
 
->>>>>>> 9f0d10ac14e60a17ed1484c4a61f7cd29fbcba8d
 def draw_agent():
     for i in xrange(0,len(agent_array)):
         agent = agent_array[i]
@@ -233,8 +224,6 @@ def run():
             if event.type == pyg.QUIT:
                 pyg.quit()
                 sys.exit()
-<<<<<<< HEAD
-=======
             elif pyg.key.get_pressed()[pyg.K_c]:
                 clear_all_item()
             elif pyg.key.get_pressed()[pyg.K_r]:
@@ -245,7 +234,6 @@ def run():
                 adjust_speed(1)
             elif pyg.key.get_pressed()[pyg.K_DOWN]:
                 adjust_speed(0)
->>>>>>> 9f0d10ac14e60a17ed1484c4a61f7cd29fbcba8d
             elif pyg.mouse.get_pressed()[0]:
                 agent_array.append(Agent(pyg.mouse.get_pos()))
             elif pyg.mouse.get_pressed()[2]:
@@ -256,6 +244,7 @@ def run():
         screen.fill(BACKGROUND)
         draw_agent()
         draw_obstacle()
+        draw_text()
         agent_update()
         pyg.display.update()
 
