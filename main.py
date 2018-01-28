@@ -17,13 +17,18 @@ speed_adjustment = 0
 #CONSTANTS
 ALIGNMENT_WEIGHT = [15,5]
 COHESION_WEIGHT = [3,3]
+<<<<<<< HEAD
+SEPERATION_WEIGHT = [5,8]
+OBSTACLE_DOGDGE_WEIGHT = 200
+=======
 SEPERATION_WEIGHT = [10,5]
 OBSTACLE_DOGDGE_WEIGHT = 50
+>>>>>>> 51d8b696871f0471ffc7a06a2c6d312e0041616f
 
 ALIGNMENT_RADIUS = 200
 COHESION_RADIUS = 170
 SEPERATION_RADIUS = 30
-OBSTACLE_DOGDGE_RADIUS = 250
+OBSTACLE_DOGDGE_RADIUS = 50
 
 MAX_SPEED = 30
 MIN_SPEED = 2
@@ -193,7 +198,7 @@ def draw_text():
     font = pyg.font.SysFont("consolas",12)
     text_array = [
                   font.render("Clock FPS: {}".format(clock.get_fps()),20,TEXT_COLOR),
-                  font.render("Clock Ticks: {}".format(pyg.time.get_ticks() / 1000),20,TEXT_COLOR),
+                  font.render("Clock Ticks: {}".format(pyg.time.get_ticks() / 1000),10,TEXT_COLOR),
                   font.render("Agent Count: {}".format(len(agent_array)),20,TEXT_COLOR),
                   font.render("Obstacle Count: {}".format(len(obstacle_array)),20,TEXT_COLOR),
                   font.render("Red Agent Speed: {}".format(DEFAULT_SPEED + speed_adjustment + 6),20,TEXT_COLOR),
