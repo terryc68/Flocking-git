@@ -17,14 +17,14 @@ speed_adjustment = 0
 #CONSTANTS
 # Blue:0 Red:1
 ALIGNMENT_WEIGHT = [10,4]
-COHESION_WEIGHT = [3,3]
+COHESION_WEIGHT = [5,3]
 SEPERATION_WEIGHT = [5,8]
-OBSTACLE_DOGDGE_WEIGHT = 200
+OBSTACLE_DOGDGE_WEIGHT = 180
 
 ALIGNMENT_RADIUS = 200
 COHESION_RADIUS = 170
 SEPERATION_RADIUS = 30
-OBSTACLE_DOGDGE_RADIUS = 50
+OBSTACLE_DOGDGE_RADIUS = 70
 
 MAX_SPEED = 30
 MIN_SPEED = 2
@@ -170,17 +170,16 @@ def adjust_speed(type):
 WIDTH = 1300
 HEIGHT = 680
 TITLE = "FLOCKING"
-FPS = 30
+FPS = 100
 BACKGROUND = (0,0,0)
 AGENT_COLOR = [(116,175,173),(222,27,26)]
-OBSTACLE_COLOR = (162,171,88)
+OBSTACLE_COLOR = (30,207,214)
 TEXT_COLOR = (255,255,255)
 TRI_BASE = 10
 TRI_HEIGHT = 15
 
 pyg.init()
 clock = pyg.time.Clock()
-clock.tick(FPS)
 
 screen = pyg.display.set_mode((WIDTH, HEIGHT))
 pyg.display.set_caption(TITLE)
@@ -192,7 +191,7 @@ def make_agent_inbound():
 def draw_text():
     font = pyg.font.SysFont("consolas",12)
     text_array = [
-                  font.render("Clock FPS: {}".format(clock.get_fps()),20,TEXT_COLOR),
+                  font.render("Clock FPS: {}".format(int(clock.get_fps())),20,TEXT_COLOR),
                   font.render("Clock Ticks: {}".format(pyg.time.get_ticks() / 1000),10,TEXT_COLOR),
                   font.render("Agent Count: {}".format(len(agent_array)),20,TEXT_COLOR),
                   font.render("Obstacle Count: {}".format(len(obstacle_array)),20,TEXT_COLOR),
@@ -245,5 +244,6 @@ def run():
         draw_text()
         agent_update()
         pyg.display.update()
+        clock.tick(FPS)
 
 run()
